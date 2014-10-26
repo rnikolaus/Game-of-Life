@@ -1,11 +1,14 @@
 package rnikolaus.gameoflife;
 
+import com.sun.javafx.embed.AbstractEvents;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.Timer;
 
 /**
@@ -13,6 +16,26 @@ import javax.swing.Timer;
  * @author rapnik
  */
 public class GameOfLifePanel extends javax.swing.JPanel {
+
+    class ShapeSelectPopup extends JPopupMenu {
+
+        public ShapeSelectPopup(final int x, final int y) {
+
+            for (final Shape s : Shape.getAll()) {
+                JMenuItem anItem = new JMenuItem(s.getName());
+                anItem.addActionListener(new ActionListener() {
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        gameOfLife.addAndTransform(s.getShapeAsDim(), x, y);
+                        redraw();
+                    }
+                });
+                add(anItem);
+            }
+
+        }
+    }
 
     private int initialPopulation = 3000;
     private int mutationRate;
@@ -69,7 +92,7 @@ public class GameOfLifePanel extends javax.swing.JPanel {
     }
 
     public void randomize() {
-        gameOfLife.reset(); 
+        gameOfLife.reset();
         gameOfLife.randomize(getInitialPopulation());
         setRunning(true);
     }
@@ -106,6 +129,7 @@ public class GameOfLifePanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        setToolTipText("Left click to set or unset a pixel, right click to select from known patterns");
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 formMouseClicked(evt);
@@ -128,8 +152,16 @@ public class GameOfLifePanel extends javax.swing.JPanel {
         Point point = evt.getPoint();
         int x = (int) (XSIZE * point.getX() / this.getWidth());
         int y = (int) (YSIZE * point.getY() / this.getHeight());
-        gameOfLife.flipCell(x, y);
-        redraw();
+        if (evt.getButton() == AbstractEvents.MOUSEEVENT_PRIMARY_BUTTON) {
+
+            gameOfLife.flipCell(x, y);
+            redraw();
+        } else {
+            ShapeSelectPopup menu = new ShapeSelectPopup(x, y);
+            menu.show(evt.getComponent(), evt.getX(), evt.getY());
+            //gameOfLife.addAndTransform(Shape.CELL10.getShapeAsDim(),x, y);
+        }
+
     }//GEN-LAST:event_formMouseClicked
 
 

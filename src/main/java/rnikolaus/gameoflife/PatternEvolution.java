@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package rnikolaus.gameoflife;
 
 import java.util.Collection;
@@ -22,10 +17,10 @@ public class PatternEvolution {
         
         for (int x=0;x<100;x++){
         GameOfLife g = new GameOfLife(10, 10);
-        Collection<DimXY> stuff = randomDim(3, 3);
+        Collection<DimXY> stuff = randomDim(4, 4);
         g.add(stuff);
         int i;
-        for (i=0;i<1000;i++){
+        for (i=0;i<10000;i++){
             if (g.isEmpty())break;
             g.nextGeneration();
         }

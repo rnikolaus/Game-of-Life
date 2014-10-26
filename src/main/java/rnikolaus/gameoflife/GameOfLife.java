@@ -172,4 +172,12 @@ public class GameOfLife {
         currentGeneration.addAll(dimlist);
     }
 
+    public void addAndTransform(Collection<DimXY> dimlist,int x, int y) {
+        for (DimXY dim :dimlist){
+            currentGeneration.add(new DimXY(handleOverflow(dim.getX()+x,sizeX), 
+                    handleOverflow(dim.getY()+y,sizeY)));
+        }
+        
+        
+    }
 }
