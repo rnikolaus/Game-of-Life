@@ -1,11 +1,11 @@
 package rnikolaus.gameoflife;
 
-import com.sun.javafx.embed.AbstractEvents;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -130,6 +130,7 @@ public class GameOfLifePanel extends javax.swing.JPanel {
     private void initComponents() {
 
         setToolTipText("Left click to set or unset a pixel, right click to select from known patterns");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 formMouseClicked(evt);
@@ -152,7 +153,7 @@ public class GameOfLifePanel extends javax.swing.JPanel {
         Point point = evt.getPoint();
         int x = (int) (XSIZE * point.getX() / this.getWidth());
         int y = (int) (YSIZE * point.getY() / this.getHeight());
-        if (evt.getButton() == AbstractEvents.MOUSEEVENT_PRIMARY_BUTTON) {
+        if (evt.getButton() == MouseEvent.BUTTON1) {
 
             gameOfLife.flipCell(x, y);
             redraw();
