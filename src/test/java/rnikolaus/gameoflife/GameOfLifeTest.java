@@ -1,17 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package rnikolaus.gameoflife;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import javax.naming.spi.DirStateFactory;
-import org.junit.Test;
-import static org.junit.Assert.*;
+package rnikolaus.gameoflife;
 
 /**
  *
